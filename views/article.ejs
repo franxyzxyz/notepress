@@ -1,0 +1,78 @@
+<script>
+  $(function(){
+    $("#comment-form").hide();
+    $("#showComment").on('click',function(e){
+      e.preventDefault();
+      $("#comment-form").show();
+    })
+
+    $.ajax({
+      url: '../../api/article/<%- article_id %>',
+      type: 'GET',
+    }).done(function(data){
+      console.log(data.article)
+      $("#showcase-title").html(data.article.title);
+      $("#showcase-content").html(data.article.contentHTML);
+      $("#showcase-time").html(new Date(data.time));
+      data.comments.forEach(function(comment){
+        $("#all-comment").append('<pre><b>'+ comment.by_user.evernote.username +'</b><pre>' + comment.content + '</pre><p>'+ new Date(parseInt(comment._id.substring(0,8), 16)*1000) + '</p></pre>');
+      })
+    });
+
+
+    $("#comment-form").on('submit',function(e){
+      e.preventDefault();
+      var comment_content = $("#comment-content").val();
+      var comment_username = $("#comment-username").val();
+      var comment_article = '<%- article_id %>';
+
+      $.ajax({
+        url: '../../api/comment',
+        type: 'POST',
+        data: {
+          comment: {
+            content: comment_content,
+            // username: comment_username,
+            article: comment_article
+          }
+        }
+      }).done(function(data){
+        console.log(data)
+        $("#all-comment").append('<pre>'+ data.content +'</pre>')
+      })
+    })
+  });
+</script>
+<div class="container">
+  <div class="showcase">
+    <h1 id="showcase-title"></h1>
+    <p>Posted on <span id="showcase-time"></span></p>
+    <div id="showcase-content"></div>
+    <div id="share-option" class="text-right">
+      <!-- <i class="icon ion-share"></i> -->
+      <a class="icon ion-more" href="#"></a>
+    </div>
+  </div>
+  <hr>
+  <div class="comment center-block container-fluid">
+    <div class="col-xs-10 col-sm-10">
+      <h4 class="site-logo">comment</h4>
+    </div>
+    <div class="col-xs-2 col-sm-2 text-right">
+      <a class="icon ion-plus" id="showComment" href="#"></a>
+    </div>
+    <form id="comment-form">
+      <div class="form-group">
+        <input type="text" id="comment-username" placeholder="username" class="form-control">
+      </div>
+      <div class="form-group">
+        <textarea id="comment-content" rows="5" placeholder="what do you think..." class="form-control"></textarea>
+      </div>
+      <button type="submit" class="btn btn-default ion-paper-airplane">POST</button>
+    </form>
+
+    <div id="all-comment">
+    </div>
+  </div>
+
+</div>

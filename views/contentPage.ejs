@@ -1,0 +1,30 @@
+<script>
+  $(function(){
+    $.ajax({
+      url: '../../api/guid/<%- guid %>',
+      type: 'GET',
+    }).done(function(data){
+      $("#embedContent").html(data.noteHtml)
+    });
+
+    $("#sendback").on('click',function(e){
+      e.preventDefault();
+      var articleContent = { article: $("#embedContent").html()};
+      $.ajax({
+        url: '../../api/article',
+        type: 'POST',
+        data: articleContent
+      }).done(function(data){
+        console.log("POST DONE")
+        console.log(data)
+        window.location.href = "/test-content/" + data.redirect_id;
+
+      })
+    })
+  })
+</script>
+<div class="container" style="border:1px solid black" contentEditable>
+    <div id="embedContent"></div>
+</div>
+
+<button id="sendback">POST</button>

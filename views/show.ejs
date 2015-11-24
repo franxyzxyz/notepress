@@ -1,0 +1,6 @@
+<% notesMeta.notes.forEach(function(note){ %>
+  <ul>
+    <li><b>guid: </b><a href="/guid/<%- note.guid %>"><%- note.guid %></a></li>
+    <li><b>title: </b><%- note.title %></li>
+  </ul>
+<% }) %>
