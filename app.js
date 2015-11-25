@@ -39,26 +39,25 @@ var Comment = require('./models/comment');
 // });
 
 app.get('/',function(req,res){
-  res.render('index')
+  res.render('articles/index')
 })
 
 app.get('/article/:article_id',function(req,res){
   var article_id = req.params.article_id;
-  res.render('article', {article_id})
+  res.render('articles/show', {article_id})
 })
 
+/// API : GET ALL ARTICLES
 app.get('/api/articles',function(req,res){
   Article.find({}).populate('author').exec(function(err,articles){
-
-  // Article.find({},function(err,articles){
     res.status(200).json({articles})
   })
 })
-
+/// API: GET ONE ARTICLE
 app.get('/api/article/:article_id',function(req,res){
   Article.findOne({_id: req.params.article_id},function(err,article){
     if (err) throw err;
-    Comment.find({article: req.params.article_id}).populate('by_user').exec(function(err,comments){
+    Comment.find({article: req.params.article_id}).populate('by_user').sort({_id:-1}).exec(function(err,comments){
       if (err) throw err;
       res.status(200).json({article: article, time: article._id.getTimestamp(), comments: comments})
     })
@@ -72,6 +71,28 @@ app.get('/signup',function(req,res){
 })
 
 app.get('/auth/evernote', passport.authenticate('evernote-signup'));
+
+app.post('/local/signup', passport.authenticate('local-signup',{
+  successRedirect : '/',
+  failureRedirect : '/local/signup',
+  failureFlash : true
+}));
+
+app.get('/local/login',function(req,res){
+  res.render('users/login')
+})
+
+
+
+app.post('/local/login', passport.authenticate('local-login', {
+  successRedirect : '/',
+  failureRedirect : '/login',
+  failureFlash : true
+}));
+
+app.get('/local/signup',function(req,res){
+  res.render('users/signup')
+})
 
 app.get('/auth/evernote/callback', passport.authenticate('evernote-signup',{ failureRedirect: '/'}),function(req,res){
   req.session.cookie.expires = new Date(Date.now() + 3600000)
@@ -108,6 +129,7 @@ app.get("/logout", function(req, res){
 
 var User = require('./models/user');
 
+//////ROUTE REQUIRES NEW CLIENT
 app.get('/test-content/:id',function(req,res){
   User.findOne({'evernote.id': req.params.id},function(err,user){
     var client = new Evernote.Client({token: user.evernote.access_token});
@@ -133,10 +155,6 @@ app.get('/test-content/:id',function(req,res){
   });
 });
 
-app.get('/guid/:guid',function(req,res){
-  var guid = req.params.guid
-  res.render('contentPage',{guid})
-})
 
 app.post('/article',function(req,res){
   console.log(req.body)
@@ -168,6 +186,7 @@ app.post('/api/user/update/:user_id', function(req,res){
   })
 })
 
+/// API: Post Comment
 app.post('/api/comment',function(req,res){
   var newComment = new Comment();
   newComment.content = req.body.comment.content;
@@ -177,10 +196,14 @@ app.post('/api/comment',function(req,res){
   newComment.by_user = '5653d8ec890ca53b0664712c';
   newComment.article = req.body.comment.article;
 
-  newComment.save(function(err, comment){
+  User.findOne({_id: newComment.by_user},function(err,user){
     if (err) throw err;
 
-    res.status(200).json({ comment })
+    newComment.save(function(err, comment){
+      if (err) throw err;
+
+      res.status(200).json({ comment: comment, user: user })
+    })
   })
 })
 
@@ -203,6 +226,11 @@ app.get('/article/:article_id',function(req,res){
   Article.findOne({_id: req.params.article_id},function(err, article){
     res.render('showArticle',{article})
   })
+})
+
+app.get('/guid/:guid',function(req,res){
+  var guid = req.params.guid
+  res.render('contentPage',{guid})
 })
 
 app.get('/api/guid/:guid',function(req,res){

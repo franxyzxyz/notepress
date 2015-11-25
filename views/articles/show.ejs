@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="showcase">
+    <h1 id="showcase-title"></h1>
+    <p>Posted on <span id="showcase-time"></span></p>
+    <div id="showcase-content"></div>
+    <div id="share-option" class="text-right">
+      <!-- <i class="icon ion-share"></i> -->
+      <a class="icon ion-more" href="#"></a>
+    </div>
+  </div>
+  <hr>
+  <div class="comment center-block container-fluid">
+    <div class="col-xs-10 col-sm-10">
+      <h4 class="site-logo">comment</h4>
+    </div>
+    <div class="col-xs-2 col-sm-2 text-right">
+      <a class="icon ion-plus" id="showComment" href="#"></a>
+    </div>
+    <form id="comment-form">
+      <div class="form-group">
+        <input type="text" id="comment-username" placeholder="username" class="form-control">
+      </div>
+      <div class="form-group">
+        <textarea id="comment-content" rows="5" placeholder="what do you think..." class="form-control"></textarea>
+      </div>
+      <button type="submit" class="btn btn-default ion-paper-airplane">POST</button>
+    </form>
+
+    <div id="all-comment">
+    </div>
+  </div>
+</div>
+
+<script src="/js/articles/show.js"></script>

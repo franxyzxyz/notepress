@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.14.1",
     "cookie-parser": "^1.4.0",
     "dotenv": "^1.2.0",
@@ -21,6 +22,7 @@
     "mongoose": "^4.2.7",
     "morgan": "^1.6.1",
     "passport": "^0.3.2",
-    "passport-evernote": "^1.0.0"
+    "passport-evernote": "^1.0.0",
+    "passport-local": "^1.0.0"
   }
 }

@@ -1,0 +1,19 @@
+<div class="auth">
+  <% var user = user || "" %>
+    <% if(user != ""){ %>
+      <h2>Below is the data sent by evernote</h2>
+      <pre>
+        <%= user.evernote %>
+      </pre>
+      <a href="/logout">Logout</a>
+    <% } else { %>
+      <!-- <a href="/auth/evernote" class="btn btn-success">Login with Evernote</a> -->
+      <a href="/auth/evernote" class="btn btn-success">Login with Evernote</a>
+    <% } %>
+  </div>
+
+<div class="container">
+  <div id="article-shelter"></div>
+</div>
+
+<script src="/js/articles/index.js"></script>
