@@ -29,6 +29,11 @@ app.use(passport.session());
 // app.use(flash());
 require('./config/passport')(passport);
 
+app.use(function (req, res, next) {
+  global.user = req.user;
+  next()
+});
+
 var Article = require('./models/article');
 var Comment = require('./models/comment');
 
@@ -73,25 +78,85 @@ app.get('/signup',function(req,res){
 app.get('/auth/evernote', passport.authenticate('evernote-signup'));
 
 app.post('/local/signup', passport.authenticate('local-signup',{
-  successRedirect : '/',
   failureRedirect : '/local/signup',
   failureFlash : true
-}));
+}),function(req,res){
+  var userId = req.user._id
+
+  var client = new Evernote.Client({
+    consumerKey: process.env.EVERNOTE_CONSUMER_KEY,
+    consumerSecret: process.env.EVERNOTE_CONSUMER_SECRET,
+    sandbox: true
+  });
+
+  var callbackURL = 'http://localhost:3000/local/oauth_callback';
+  client.getRequestToken(callbackURL, function(error, oauthToken, oauthTokenSecret, results){
+    if (error) {
+      console.log('err')
+      req.session.error = JSON.stringify(error);
+      res.redirect('/');
+    }else{
+      console.log("success request token")
+      req.session.oauthToken = oauthToken;
+      req.session.oauthTokenSecret = oauthTokenSecret;
+
+      res.redirect(client.getAuthorizeUrl(oauthToken));
+    }
+  });
+});
+
+app.get('/local/oauth_callback',function(req,res){
+  console.log("in oauth_callback");
+  var client = new Evernote.Client({
+    consumerKey: process.env.EVERNOTE_CONSUMER_KEY,
+    consumerSecret: process.env.EVERNOTE_CONSUMER_SECRET,
+    sandbox: true
+  });
+  client.getAccessToken(req.session.oauthToken, req.session.oauthTokenSecret, req.param('oauth_verifier'), function(error, oauthAccessToken, oauthAccessTokenSecret, results){
+      if(error) {
+        console.log('error');
+        console.log(error);
+        res.redirect('/');
+      } else {
+        User.findById(req.user._id,function(err, user){
+          user.evernote.access_token = oauthAccessToken
+          user.save(function(err){
+            if (err) throw err;
+            res.redirect('/')
+          })
+        })
+      }
+
+  })
+})
 
 app.get('/local/login',function(req,res){
   res.render('users/login')
 })
 
-
-
 app.post('/local/login', passport.authenticate('local-login', {
-  successRedirect : '/',
   failureRedirect : '/login',
   failureFlash : true
-}));
+}),function(req,res){
+  console.log(req.user)
+  res.redirect('/')
+});
 
 app.get('/local/signup',function(req,res){
   res.render('users/signup')
+})
+
+app.get('/auth/evernote/callback', passport.authenticate('evernote-signup',{ failureRedirect: '/'}),function(req,res){
+  console.log(req.session)
+  // sucessful authentication, redirect home
+  // res.redirect('/')
+  var userId = req.user._id
+
+  if (req.user.evernote.username){
+    res.redirect('/')
+  }else{
+    res.render('signup',{userId})
+  }
 })
 
 app.get('/auth/evernote/callback', passport.authenticate('evernote-signup',{ failureRedirect: '/'}),function(req,res){
@@ -104,7 +169,6 @@ app.get('/auth/evernote/callback', passport.authenticate('evernote-signup',{ fai
     res.redirect('/')
   }else{
     res.render('signup',{userId})
-
   }
 })
 
@@ -129,31 +193,11 @@ app.get("/logout", function(req, res){
 
 var User = require('./models/user');
 
-//////ROUTE REQUIRES NEW CLIENT
-app.get('/test-content/:id',function(req,res){
-  User.findOne({'evernote.id': req.params.id},function(err,user){
-    var client = new Evernote.Client({token: user.evernote.access_token});
+var routes = require('./config/routes');
+app.use('/', routes);
 
-    var noteStore = client.getNoteStore();
-
-    // notes = noteStore.getNote(function(err,notes){
-    //   console.log(notes)
-    //   // res.render('show',{notes})
-    // })
-    noteStore.listNotebooks(function(err, notebooks) {
-      var filter = new Evernote.NoteFilter();
-      resultSpec = new Evernote.NotesMetadataResultSpec();
-      resultSpec.includeTitle=true;
-
-      filter.notebookGuid = notebooks[0].guid;
-      noteStore.findNotesMetadata(filter, 0, 100, resultSpec, function(err, notesMeta){
-        console.log(notesMeta)
-
-        res.render('show',{notesMeta})
-      })
-    });
-  });
-});
+var apiRoutes = require('./config/apiRoutes');
+app.use('/', apiRoutes);
 
 
 app.post('/article',function(req,res){
@@ -207,30 +251,10 @@ app.post('/api/comment',function(req,res){
   })
 })
 
-app.post('/api/article',function(req,res){
-  // console.log(req.body.article)
-  var newArticle = new Article();
-  newArticle.title = "TEST";
-  newArticle.contentHTML = req.body.article;
-  newArticle.tag = ['Ruby'];
-  newArticle.author = req.user._id
-  console.log(newArticle)
-  newArticle.save(function(err,article){
-    if (err) throw err;
-
-    res.status(200).json({message: 'successfully posted', redirect_id: req.user.evernote.id})
-  })
-})
-
 app.get('/article/:article_id',function(req,res){
   Article.findOne({_id: req.params.article_id},function(err, article){
     res.render('showArticle',{article})
   })
-})
-
-app.get('/guid/:guid',function(req,res){
-  var guid = req.params.guid
-  res.render('contentPage',{guid})
 })
 
 app.get('/api/guid/:guid',function(req,res){
@@ -248,6 +272,12 @@ app.get('/api/guid/:guid',function(req,res){
     })
   // // })
 })
+
+app.get('/logout',function(req,res){
+  req.logout();
+  res.redirect('/')
+})
+
 
 app.listen(3000)
 console.log("Connected to server")

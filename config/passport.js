@@ -67,13 +67,11 @@ module.exports = function(passport){
         if (user){
           return done(null, user);
         } else {
-          console.log("token: " + token);
-          console.log("tokenSecret: " + tokenSecret);
-          console.log(profile);
 
           var newUser = new User();
           newUser.evernote.id = profile.id;
           newUser.evernote.access_token = token;
+          return done(null, newUser)
           newUser.save(function(err){
             if (err) throw err;
 

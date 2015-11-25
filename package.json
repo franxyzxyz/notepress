@@ -19,6 +19,7 @@
     "express": "^4.13.3",
     "express-ejs-layouts": "^2.0.0",
     "express-session": "^1.12.1",
+    "method-override": "^2.3.5",
     "mongoose": "^4.2.7",
     "morgan": "^1.6.1",
     "passport": "^0.3.2",

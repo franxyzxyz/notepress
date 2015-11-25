@@ -5,7 +5,8 @@ var User = mongoose.Schema({
   evernote : {
     id        : String,
     access_token : String,
-    username     : {type: String, unique: true},
+    // later remove username
+    username     : {type: String, unique: true}
     // email        : String
   },
   local:{

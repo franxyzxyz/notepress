@@ -9,7 +9,7 @@
 
     $("#sendback").on('click',function(e){
       e.preventDefault();
-      var articleContent = { article: $("#embedContent").html()};
+      var articleContent = { article: $("#embedContent").html(), title: $("#new-title").val(), tag: $("#new-tag").val()};
       $.ajax({
         url: '../../api/article',
         type: 'POST',
@@ -17,14 +17,19 @@
       }).done(function(data){
         console.log("POST DONE")
         console.log(data)
-        window.location.href = "/test-content/" + data.redirect_id;
-
+        window.location.href = "/"
       })
     })
   })
 </script>
+<div class="new-title">
+  <input type="text" id="new-title" placeholder="Title" class="form-control">
+</div>
 <div class="container" style="border:1px solid black" contentEditable>
     <div id="embedContent"></div>
+</div>
+<div class="tag">
+  <input type="text" id="new-tag" placeholder="tag" class="form-control">
 </div>
 
 <button id="sendback">POST</button>
