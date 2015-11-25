@@ -11,6 +11,11 @@ articleRouter.route('/')
 articleRouter.route('/article/:article_id')
   .get(articleController.getOneArticle)
 
+articleRouter.route('/article/:article_id/edit')
+  .get(authenticatedUser, articleController.editArticle)
 
-
+function authenticatedUser(req, res, next) {
+  if (req.isAuthenticated()) return next();
+  res.redirect('/local/login?base='+base);
+}
 module.exports = articleRouter

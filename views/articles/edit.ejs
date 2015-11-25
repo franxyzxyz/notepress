@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="new-title">
+    <input type="text" class="form-control" id="new-article-title">
+  </div>
+  <div class="edit-content container">
+    <div class="col-sm-3">
+      <div id="section-search" >
+        <input type="text" placeholder="search giphy" id="search_giphy_string">
+        <span>
+          <button class="btn btn-link icon ion-ios-search-strong" type="button" id="fetch_giphy"></button>
+        </span>
+      </div>
+      <div id="section-search-result"></div>
+    </div>
+    <div class="col-sm-9">
+      <div class="editable-wrapper">
+        <div class="editable" id="editable"></div>
+      </div>
+    </div>
+  </div>
+  <div class="edit-article-tag">
+    <div class="form-group">
+      <label for="tag-holder">Tag</label>
+      <select name="tag" id="tag-holder" class="form-control">
+      <% stackList.forEach(function(stack){ %>
+        <option value="<%- stack %>"><%- stack %></option>
+      <% }) %>
+      </select>
+    </div>
+    <button id="post-content" class="btn btn-success form-control">PUBLISH ARTICLE</button>
+  </div>
+</div>
+<script src="/js/articles/edit.js"></script>

@@ -53,32 +53,4 @@ module.exports = function(passport){
     })
   }))
 
-  passport.use('evernote-signup', new EvernoteStrategy({
-      requestTokenURL:      'https://sandbox.evernote.com/oauth',
-      accessTokenURL:       'https://sandbox.evernote.com/oauth',
-      userAuthorizationURL: 'https://sandbox.evernote.com/OAuth.action',
-      callbackURL:          'http://localhost:3000/auth/evernote/callback',
-      consumerKey:           process.env.EVERNOTE_CONSUMER_KEY,
-      consumerSecret:        process.env.EVERNOTE_CONSUMER_SECRET
-    },
-    function(token, tokenSecret, profile, done){
-      User.findOne({'evernote.id': profile.id}, function(err, user){
-        if (err) return done(err);
-        if (user){
-          return done(null, user);
-        } else {
-
-          var newUser = new User();
-          newUser.evernote.id = profile.id;
-          newUser.evernote.access_token = token;
-          return done(null, newUser)
-          newUser.save(function(err){
-            if (err) throw err;
-
-            return done(null, newUser)
-          })
-        }
-      })
-    }
-  ));
 }

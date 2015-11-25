@@ -17,6 +17,35 @@ var API_WRAPPER = function(){
     });
   }
 
+  this.getNewArticle = function(){
+    return $.ajax({
+      url: '../../api/article',
+      type: 'GET'
+    });
+  }
+
+  this.postArticle = function(articleContent){
+    return $.ajax({
+      url: '../../api/article',
+      type: 'POST',
+      data: articleContent
+    });
+  }
+
+  this.editArticle = function(article_id){
+    return $.ajax({
+      url  : "../../api/article/" + article_id + "/edit",
+      type: 'GET'
+    })
+  }
+  this.updateArticle = function(article_id, articleContent){
+    return $.ajax({
+      url  : "../../api/article/" + article_id,
+      type: 'PUT',
+      data: articleContent
+    })
+  }
+
   this.deleteOneArticle = function(article_id){
     return $.ajax({
       url: '../../api/article/' + article_id,
@@ -46,5 +75,26 @@ var API_WRAPPER = function(){
       }
     });
   }
+  this.deleteComment = function(comment_id){
+    return $.ajax({
+      url: '../../api/comment/' + comment_id,
+      type: 'DELETE'
+    });
+  }
 
+///fetch from evernote
+  this.getOneNote = function(guid){
+    return $.ajax({
+      url: '../../api/guid/' + guid,
+      type: 'GET',
+    })
+  }
+
+//// EXTERNAL API
+  this.getGiphy = function(search_url){
+    return $.ajax({
+      url:  search_url,
+      type: 'GET'
+    })
+  }
 }

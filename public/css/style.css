@@ -7,6 +7,53 @@ h1{
 h2{
   font-weight:700;
 }
+#evernote-combo{
+  /*border:1px solid black;*/
+  padding:10px;
+  background:rgba(230,230,230,1);
+  border-radius:5px;
+}
+.evernote-select{
+  width:180px;
+  height:180px;
+  border-radius:5px;
+  margin: 0px 5px;
+  border: 1px solid #ccc;
+  display:inline-block;
+  padding:10px;
+  vertical-align: bottom;
+  cursor:pointer;
+  background:white;
+}
+#preview-evernote{
+  border-radius:5px;
+  background:white;
+  padding:10px;
+  height:200px;
+  overflow: hidden;
+}
+.evernote-select:hover{
+  border: 1px solid rgba(50,150,200,1);
+}
+.preview-title{
+  font-weight:700;
+  font-size:13px;
+  text-overflow: ellipsis;
+  height:60px;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-bottom:10px;
+}
+.preview-content-meta{
+  font-size:13px;
+  /*text-overflow: ellipsis;*/
+  height:110px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+#select-evernote{
+  overflow-x: auto;
+}
 .read-more{
   z-index: 2;
 }
@@ -64,6 +111,9 @@ a.comment{
 .showcase{
   margin:0 auto;
   width:80%;
+  border-radius:5px;
+  background:rgba(220,220,220,0.6);
+  padding:10px 30px;
 }
 #showcase-title{
   font-weight:900;
@@ -78,5 +128,50 @@ input[type=text]{
   border: 2px solid #ccc;
   font-size:20px;
   height:50px;
-
+}
+.editable-wrapper{
+  background:rgba(230,230,230,1);
+  padding:20px;
+}
+.editable{
+  height:500px;
+  padding:20px;
+  background:white;
+  border-radius:5px;
+  overflow-y:auto;
+}
+.preview-selected{
+  border: 1px solid rgba(50,150,200,1) !important;
+}
+.article-tag{
+  padding:5px 20px 5px 5px;
+  /*background: #ccc;*/
+}
+span.icon{
+  font-size:20px;
+  padding-right:10px;
+}
+#showcase-content{
+  background:white;
+  border-radius:5px;
+  padding:10px;
+}
+img.giphy-list{
+  margin:5px;
+  cursor: pointer;
+}
+#search_giphy_string{
+  border-radius:30px !important;
+  padding:5px 15px;
+  font-size:15px !important;
+}
+.giphy-group{
+  margin:0 auto;
+}
+#section-search-result{
+  height:480px;
+  overflow-y: auto;
+}
+#share-option{
+  display:inline;
 }

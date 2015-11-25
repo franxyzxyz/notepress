@@ -1,18 +1,20 @@
 <div class="container">
   <div class="showcase">
     <h1 id="showcase-title"></h1>
-    <p>Posted on <span id="showcase-time"></span></p>
+    <p><a id="showcase-author" href="#"></a> | Posted on: <span id="showcase-time"></span></p>
+    <hr>
     <div id="showcase-content"></div>
+    <hr>
+    <div id="showcase-tag"></div>
     <div id="share-option" class="text-right">
       <!-- <i class="icon ion-share"></i> -->
       <% if (user !== undefined) { %>
         <form id="delete-post" method="POST">
           <button type="submit" class="btn btn-link icon ion-trash-a"></button>
         </form>
-        <!-- <a class="icon ion-trash-a"></a> -->
+        <a type="submit" class="btn btn-link icon ion-edit" id="edit-post"></a>
       <% } %>
       <a class="icon ion-more" href="#"></a>
-
     </div>
   </div>
   <hr>
@@ -26,7 +28,7 @@
     <form id="comment-form">
       <div class="form-group">
       <% if (user !== undefined) { %>
-        <textarea id="comment-content" rows="5" placeholder="what do you think..." class="form-control"></textarea>
+        <textarea id="comment-content" rows="5" placeholder="what do you think..." class="form-control" data-current-user="<%- user._id %>"></textarea>
         </div>
         <button type="submit" class="btn btn-default ion-paper-airplane">POST</button>
       <% } else { %>

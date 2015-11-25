@@ -12,7 +12,7 @@ function getAllArticle(req,res){
 }
 
 function getOneArticle(req,res){
-  Article.findOne({_id: req.params.article_id},function(err,article){
+  Article.findOne({_id: req.params.article_id}).populate('author').exec(function(err,article){
     if (err) throw err;
     Comment.find({article: req.params.article_id}).populate('by_user').sort({_id:-1}).exec(function(err,comments){
       if (err) throw err;
@@ -21,13 +21,46 @@ function getOneArticle(req,res){
   })
 }
 
+function updateArticle(req,res){
+  Article.findOne({_id: req.params.article_id}, function(err, article){
+    if (err) throw err;
+
+    article.title = req.body.title;
+    article.contentHTML = req.body.article;
+    article.tag = [req.body.tag];
+
+    article.save(function(err,article){
+      if (err) throw err;
+
+      res.status(200).json({message: 'successfully updated'})
+    })
+  })
+}
+
+function getNewArticle(req,res){
+  var client = new Evernote.Client({token: req.user.evernote.access_token});
+  var noteStore = client.getNoteStore();
+  noteStore.listNotebooks(function(err, notebooks) {
+    var filter = new Evernote.NoteFilter();
+    resultSpec = new Evernote.NotesMetadataResultSpec();
+    resultSpec.includeTitle=true;
+
+    filter.notebookGuid = notebooks[0].guid;
+    noteStore.findNotesMetadata(filter, 0, 100, resultSpec, function(err, notesMeta){
+      // res.render('show',{notesMeta})
+      res.status(201).json({notesMeta : notesMeta})
+      // res.render('articles/new', {notesMeta})
+    })
+  });
+}
+
 function deleteOneArticle(req,res){
   Article.findOne({_id: req.params.article_id},function(err,article){
     if (err) throw err;
     article.remove(function(err, deletedArticle){
       if (err) throw err;
 
-      res.status(200).json({message:'successfully deleted'})
+      res.status(201).json({message:'successfully deleted'})
     })
   })
 }
@@ -71,6 +104,18 @@ function postComment(req,res){
   })
 }
 
+function deleteComment(req,res){
+  Comment.findById(req.params.commend_id,function(err,comment){
+    if (err) throw err;
+
+    comment.remove(function(err, deletedComment){
+      if (err) throw err;
+
+      res.status(201).json({message:'successfully deleted comment'})
+    })
+  })
+}
+
 function getOneNote(req,res){
   var client = new Evernote.Client({token: req.user.evernote.access_token});
   var noteStore = client.getNoteStore();
@@ -83,10 +128,13 @@ function getOneNote(req,res){
 
 module.exports = {
   getAllArticle:  getAllArticle,
+  getNewArticle: getNewArticle,
   getOneArticle: getOneArticle,
   deleteOneArticle: deleteOneArticle,
   postArticle: postArticle,
+  updateArticle: updateArticle,
   getUserDashboard: getUserDashboard,
   postComment: postComment,
+  deleteComment: deleteComment,
   getOneNote: getOneNote
 }

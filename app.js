@@ -36,6 +36,7 @@ require('./config/passport')(passport);
 app.use(function (req, res, next) {
   global.user = req.user;
   global.base = req.originalUrl;
+  global.stackList = require('./helper/list').stackList;
   next()
 });
 

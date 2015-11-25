@@ -9,17 +9,26 @@ apiRouter.route('/api/articles')
   .get(apiController.getAllArticle)
 
 apiRouter.route('/api/article')
+  .get(authenticatedUser,apiController.getNewArticle)
   .post(authenticatedUser,apiController.postArticle)
 
 apiRouter.route('/api/article/:article_id')
   .get(apiController.getOneArticle)
+  .put(apiController.updateArticle)
   .delete(apiController.deleteOneArticle)
+
+apiRouter.route('/api/article/:article_id/edit')
+  .get(apiController.getOneArticle)
 
 apiRouter.route('/api/user/:user_id')
   .get(apiController.getUserDashboard)
 
 apiRouter.route('/api/comment')
   .post(commentable, apiController.postComment)
+
+apiRouter.route('/api/comment/:commend_id')
+  .delete(apiController.deleteComment)
+
 
 apiRouter.route('/api/guid/:guid')
   .get(authenticatedUser, apiController.getOneNote)

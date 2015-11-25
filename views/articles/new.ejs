@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="new-title">
+    <h1>1. Title of Article</h1>
+    <input type="text" placeholder="title" class="form-control" id="new-article-title">
+  </div>
+  <div class="select-note">
+    <h1>2. Select notes from your Evernote Collection</h1>
+    <div id="notebook-meta"></div>
+    <div id="evernote-combo">
+      <div id="select-evernote"></div>
+      <hr>
+      <h4>Preview</h4><div id="preview-evernote"></div>
+      <button id="note-selected" class="btn btn-default form-control">SELECT</button>
+    </div>
+  </div>
+  <div id="new-article-content">
+    <h1 id="writeUp">3. Write it Up</h1>
+    <div class="container">
+      <div class="col-sm-3">
+        <div id="section-search" >
+          <input type="text" placeholder="search giphy" id="search_giphy_string">
+          <span>
+            <button class="btn btn-link icon ion-ios-search-strong" type="button" id="fetch_giphy"></button>
+          </span>
+        </div>
+        <div id="section-search-result">        </div>
+      </div>
+      <div class="col-sm-9">
+        <div class="editable-wrapper">
+          <div class="editable" id="editable"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="new-article-tag">
+    <h1>4. Select a category</h1>
+    <div class="form-group">
+      <select name="tag" id="tag-holder" class="form-control">
+      <% stackList.forEach(function(stack){ %>
+        <option value="<%- stack %>"><%- stack %></option>
+      <% }) %>
+      </select>
+    </div>
+    <button id="post-content" class="btn btn-success form-control">PUBLISH ARTICLE</button>
+  </div>
+
+</div>
+
+<script src="/js/articles/new.js"></script>
