@@ -17,6 +17,21 @@ var API_WRAPPER = function(){
     });
   }
 
+  this.deleteOneArticle = function(article_id){
+    return $.ajax({
+      url: '../../api/article/' + article_id,
+      type: 'DELETE'
+    });
+  }
+/// API: USER
+ // get dashboard
+  this.getUserDashboard = function(user_id){
+    return $.ajax({
+      url: '../../api/user/' + user_id,
+      type: 'GET',
+    });
+  }
+
 /// API: COMMENT
 /// post a comment [params: content, Target-Article]
   this.postComment = function(comment_content, comment_article){
@@ -31,4 +46,5 @@ var API_WRAPPER = function(){
       }
     });
   }
+
 }

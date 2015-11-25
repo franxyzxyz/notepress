@@ -1,21 +1,23 @@
-<script>
-  $(function(){
-    $.ajax({
-      url: '../../api/user/<%- userId %>',
-      type: 'GET',
-    }).done(function(data){
-      $("#personal-header").html("<h1 class='text-center'>" + data.user.evernote.username + "'s dashboard</h1>")
-      data.articles.forEach(function(article){
-        $("#local-article").append("<div class='container'><div class='col-sm-10'><h1>" + article.title + "</h1></div><div class='col-sm-2'><i class='icon ion-trash-a'></i></div></div><div><pre>" + article.contentHTML +"</pre></div><small>Created at: "+ new Date(parseInt(article._id.substring(0,8), 16)*1000) +"</small>")
-      })
-    });
-
-  })
-</script>
-
 <div class="container">
   <div id="personal-header"></div>
   <div id="local-article">
 
   </div>
+  <div id="article">
+    <div class="container oneArticle">
+      <div class="col-sm-10">
+        <h1 class="article-title"></h1>
+      </div>
+      <div class="col-sm-2">
+        <% if (user !== undefined) { %>
+        <i class='icon ion-trash-a delete-article'></i>
+        <% } %>
+      </div>
+    </div>
+    <div>
+      <pre class="article-content"></pre>
+    </div>
+    <small>Created at: <span class="article-date"></span></small>
+  </div>
 </div>
+<script src="/js/users/index.js"></script>

@@ -7,10 +7,13 @@ h1{
 h2{
   font-weight:700;
 }
+.read-more{
+  z-index: 2;
+}
 .site-logo{
   font-weight:900;
 }
-a.icon, i.icon{
+a.icon, i.icon, button.icon{
   font-size:30px;
   color:#333;
 }

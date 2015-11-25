@@ -5,7 +5,14 @@
     <div id="showcase-content"></div>
     <div id="share-option" class="text-right">
       <!-- <i class="icon ion-share"></i> -->
+      <% if (user !== undefined) { %>
+        <form id="delete-post" method="POST">
+          <button type="submit" class="btn btn-link icon ion-trash-a"></button>
+        </form>
+        <!-- <a class="icon ion-trash-a"></a> -->
+      <% } %>
       <a class="icon ion-more" href="#"></a>
+
     </div>
   </div>
   <hr>
@@ -18,12 +25,14 @@
     </div>
     <form id="comment-form">
       <div class="form-group">
-        <input type="text" id="comment-username" placeholder="username" class="form-control">
-      </div>
-      <div class="form-group">
+      <% if (user !== undefined) { %>
         <textarea id="comment-content" rows="5" placeholder="what do you think..." class="form-control"></textarea>
-      </div>
-      <button type="submit" class="btn btn-default ion-paper-airplane">POST</button>
+        </div>
+        <button type="submit" class="btn btn-default ion-paper-airplane">POST</button>
+      <% } else { %>
+        <textarea id="comment-content" rows="5" placeholder="You must be logged in to leave comment" class="form-control" disabled></textarea>
+        </div>
+      <% } %>
     </form>
 
     <div id="all-comment">

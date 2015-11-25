@@ -3,10 +3,10 @@ var bcrypt   = require('bcrypt-nodejs');
 
 var User = mongoose.Schema({
   evernote : {
-    id        : String,
+    // id        : String,
     access_token : String,
     // later remove username
-    username     : {type: String, unique: true}
+    // username     : {type: String, unique: true}
     // email        : String
   },
   local:{

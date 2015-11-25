@@ -13,12 +13,13 @@
 </head>
 <body>
   <h1 class="text-center site-logo">NotePress</h1>
-  <div class="auth">
+  <div class="auth text-center">
     <% if(user !== undefined){ %>
       <a href="/logout">Logout</a>
     <% } else { %>
-      <!-- <a href="/auth/evernote" class="btn btn-success">Login with Evernote</a> -->
-      <a href="/local/login" class="btn btn-success">Login with Evernote</a>
+      <a href="/local/login?base=<%- base %>" class="btn btn-primary">Login</a>
+      <a href="/local/signup" class="btn btn-success">Sign Up with Evernote</a>
+
     <% } %>
   </div>
   <hr>

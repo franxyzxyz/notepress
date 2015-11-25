@@ -5,6 +5,7 @@ var methodOverride = require('method-override');
 var passport = require("passport");
 var usersController = require('../controllers/evernotes');
 
+
 router.route('/getNotesList')
   .get(authenticatedUser, usersController.getNotesList);
 
