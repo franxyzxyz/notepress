@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Evernote authentication</title>
+  <title>NotePress</title>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,800,700,600' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/style.css">
@@ -40,13 +40,13 @@
               </ul>
             </li>
           </ul>
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-right ">
           <% if(user !== undefined){ %>
               <li><a href="/article/post/new"><i class="icon ion-compose"></i></a></li>
               <li><a href="/logout"><i class="icon ion-log-out"></i></a></li>
           <% } else { %>
-              <li><a href="/local/login?base=<%- base %>" class="btn btn-primary">Login</a></li>
-              <li><a href="/local/signup" class="btn btn-success">Sign Up with Evernote</a></li>
+              <li><a href="/local/login?base=<%- base %>" class="btn btn-login nav-btn">Login</a></li>
+              <li><a href="/local/signup" class="btn btn-signup nav-btn ">Sign Up with Evernote</a></li>
           <% } %>
           </ul>
         </div><!-- /.navbar-collapse -->

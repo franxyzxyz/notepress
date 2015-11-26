@@ -7,11 +7,11 @@ var enml = require('enml-js');
 
 function getAllArticle(req,res){
   if(req.query.sort){
-    Article.find({tag: req.query.sort}).populate('author').exec(function(err,articles){
+    Article.find({tag: req.query.sort}).sort({_id:-1}).populate('author').exec(function(err,articles){
       res.status(200).json({articles})
     })
   }else{
-    Article.find({}).populate('author').exec(function(err,articles){
+    Article.find({}).populate('author').sort({_id:-1}).exec(function(err,articles){
       res.status(200).json({articles})
     })
   }
@@ -86,7 +86,7 @@ function postArticle(req,res){
 
 function getUserDashboard(req,res){
   User.findById(req.params.user_id,function(err,user){
-    Article.find({author:req.params.user_id},function(err,articles){
+    Article.find({author:req.params.user_id}).sort({_id:-1}).exec(function(err,articles){
       res.status(200).json({articles: articles, user_id: req.params.user_id, user: user})
     })
   })

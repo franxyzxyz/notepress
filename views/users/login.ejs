@@ -1,14 +1,19 @@
-<h2>Login</h2>
-<form method="post" action="/local/login?base=<%- callbackURL %>">
-  <div class="form-group">
-    <label for="email">Email</label>
-    <input class="form-control" type="text" name="email" id="email">
-  </div>
+<div id="sort-title">Login</div>
+<div class="container center-block">
+  <div class="login-form">
+    <!-- <h2>Login</h2> -->
+    <form method="post" action="/local/login?base=<%- callbackURL %>" >
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input class="form-control" type="text" name="email" id="email">
+      </div>
 
-  <div class="form-group">
-    <label for="email">Password</label>
-    <input class="form-control" type="password" name="password" id="password">
-  </div>
+      <div class="form-group">
+        <label for="email">Password</label>
+        <input class="form-control" type="password" name="password" id="password">
+      </div>
 
-  <input class="btn btn-default" type="submit">
-</form>
+      <input class="btn btn-default" type="submit" value="LOGIN">
+    </form>
+  </div>
+</div>
