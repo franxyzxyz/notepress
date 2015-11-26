@@ -32,8 +32,8 @@ userRouter.post('/local/signup', passport.authenticate('local-signup',{
     sandbox: true
   });
 
-  var callbackURL = 'http://localhost:3000/local/oauth_callback';
-  // var callbackURL = "http://" + req.hostname + '/local/oauth_callback';
+  // var callbackURL = 'http://localhost:3000/local/oauth_callback';
+  var callbackURL = "http://" + req.hostname + '/local/oauth_callback';
 
   client.getRequestToken(callbackURL, function(error, oauthToken, oauthTokenSecret, results){
     if (error) {
