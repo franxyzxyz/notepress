@@ -2,6 +2,8 @@ var passport = require("passport");
 var Article = require("../models/article");
 
 function getAllArticle(req,res){
+  // if (req.query.sort){
+  // }
   res.render('articles/index')
 }
 

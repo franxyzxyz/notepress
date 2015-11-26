@@ -3,12 +3,21 @@ var API_WRAPPER = function(){
 
 /// API: ARTICLE
   // get all articles
-  this.getAllArticle = function(){
-    return $.ajax({
-      url: '../../api/articles/',
-      type: 'GET'
-    });
+  this.getAllArticle = function(sort_stack){
+    if (!sort_stack){
+      return $.ajax({
+        url: '../../api/articles',
+        type: 'GET'
+      });
+    }else{
+      return $.ajax({
+        url: '../../api/articles?sort=' + sort_stack,
+        type: 'GET'
+      });
+    }
   };
+
+
   // get one article [params: article_id]
   this.getOneArticle = function(article_id){
     return $.ajax({

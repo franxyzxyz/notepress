@@ -25,17 +25,19 @@
     <div class="col-xs-2 col-sm-2 text-right">
       <a class="icon ion-plus" id="showComment" href="#"></a>
     </div>
-    <form id="comment-form">
-      <div class="form-group">
-      <% if (user !== undefined) { %>
-        <textarea id="comment-content" rows="5" placeholder="what do you think..." class="form-control" data-current-user="<%- user._id %>"></textarea>
+    <div class="col-sm-12">
+      <form id="comment-form">
+        <div class="form-group">
+        <% if (user !== undefined) { %>
+          <textarea id="comment-content" rows="5" placeholder="what do you think..." class="form-control" data-current-user="<%- user._id %>"></textarea>
+          </div>
+          <button type="submit" class="btn btn-default ion-paper-airplane">POST</button>
+        <% } else { %>
+          <textarea id="comment-content" rows="5" placeholder="You must be logged in to leave comment" class="form-control" disabled></textarea>
         </div>
-        <button type="submit" class="btn btn-default ion-paper-airplane">POST</button>
-      <% } else { %>
-        <textarea id="comment-content" rows="5" placeholder="You must be logged in to leave comment" class="form-control" disabled></textarea>
-        </div>
-      <% } %>
-    </form>
+        <% } %>
+      </form>
+    </div>
 
     <div id="all-comment">
     </div>

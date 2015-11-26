@@ -6,9 +6,15 @@ var Evernote = require('evernote').Evernote;
 var enml = require('enml-js');
 
 function getAllArticle(req,res){
-  Article.find({}).populate('author').exec(function(err,articles){
-    res.status(200).json({articles})
-  })
+  if(req.query.sort){
+    Article.find({tag: req.query.sort}).populate('author').exec(function(err,articles){
+      res.status(200).json({articles})
+    })
+  }else{
+    Article.find({}).populate('author').exec(function(err,articles){
+      res.status(200).json({articles})
+    })
+  }
 }
 
 function getOneArticle(req,res){

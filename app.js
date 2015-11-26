@@ -12,12 +12,12 @@ var connect        = require('connect')
 var methodOverride = require('method-override')
 var enml           = require('enml-js');
 
-
 require('dotenv').load();
 app.use(cookieParser());
 app.use(bodyParser());
 
-mongoose.connect('mongodb://localhost/devnote_db');
+var mongoURI = process.env.MONGOLAB_URI;
+mongoose.connect(mongoURI);
 
 app.use(morgan('dev'));
 app.set('view engine', 'ejs');
@@ -43,31 +43,6 @@ app.use(function (req, res, next) {
 var Article = require('./models/article');
 var Comment = require('./models/comment');
 var User = require('./models/user');
-
-// app.get('/local/oauth_callback',function(req,res){
-//   console.log("in oauth_callback");
-//   var client = new Evernote.Client({
-//     consumerKey: process.env.EVERNOTE_CONSUMER_KEY,
-//     consumerSecret: process.env.EVERNOTE_CONSUMER_SECRET,
-//     sandbox: true
-//   });
-//   client.getAccessToken(req.session.oauthToken, req.session.oauthTokenSecret, req.param('oauth_verifier'), function(error, oauthAccessToken, oauthAccessTokenSecret, results){
-//       if(error) {
-//         console.log('error');
-//         console.log(error);
-//         res.redirect('/');
-//       } else {
-//         User.findById(req.user._id,function(err, user){
-//           user.evernote.access_token = oauthAccessToken
-//           user.save(function(err){
-//             if (err) throw err;
-//             res.redirect('/')
-//           })
-//         })
-//       }
-
-//   })
-// })
 
 var evernoteRoutes = require('./config/evernoteRoutes');
 app.use('/', evernoteRoutes);
@@ -101,5 +76,5 @@ app.get('/article/:article_id',function(req,res){
   })
 })
 
-app.listen(3000)
+app.listen(process.env.PORT)
 console.log("Connected to server")

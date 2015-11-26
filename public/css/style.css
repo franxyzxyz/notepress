@@ -59,6 +59,7 @@ h2{
 }
 .site-logo{
   font-weight:900;
+  font-size:30px;
 }
 a.icon, i.icon, button.icon{
   font-size:30px;
@@ -86,8 +87,8 @@ a.comment{
   margin:0;
   padding:30px 0;
   background-image: linear-gradient(to bottom, transparent, #444);
-
 }
+
 .box-content .article-title{
   position:absolute;
   top:0;
@@ -120,6 +121,9 @@ a.comment{
 }
 .comment{
   width:70%;
+}
+#all-comment{
+  margin-top:20px;
 }
 #signup-box{
   width:40%;
