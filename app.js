@@ -56,25 +56,5 @@ app.use('/', userRoutes);
 var articleRoutes = require('./config/articleRoutes');
 app.use('/', articleRoutes);
 
-
-// app.post('/api/user/update/:user_id', function(req,res){
-//   var updateAttr = {evernote: {username: req.body.username}}
-//   User.findById(req.params.user_id, function(err,user){
-//     if (err) throw err;
-
-//     user.evernote.username = req.body.username;
-//     user.save(function(err){
-//       if (err) throw err;
-//       res.status(201).json({message: 'successfully updated'})
-//     })
-//   })
-// })
-
-app.get('/article/:article_id',function(req,res){
-  Article.findOne({_id: req.params.article_id},function(err, article){
-    res.render('showArticle',{article})
-  })
-})
-
 app.listen(process.env.PORT)
 console.log("Connected to server")
