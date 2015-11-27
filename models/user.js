@@ -11,7 +11,8 @@ var User = mongoose.Schema({
   },
   local:{
     email: {type: String, required: true, unique: true},
-    password: String
+    password: String,
+    gravatar: String
   }
   // username: {type: String, required: true}
 });

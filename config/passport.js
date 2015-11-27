@@ -1,6 +1,7 @@
 var EvernoteStrategy = require('passport-evernote').Strategy;
 var LocalStrategy   = require('passport-local').Strategy;
 var User            = require('../models/user');
+var gravatar        = require('gravatar');
 
 module.exports = function(passport){
   passport.serializeUser(function(user, done) {
@@ -27,7 +28,7 @@ module.exports = function(passport){
         var newUser = new User();
         newUser.local.email = email;
         newUser.local.password = newUser.encrypt(password);
-        console.log(newUser)
+        newUser.local.gravatar = gravatar.url(email);
 
         newUser.save(function(err){
           if (err) throw err;

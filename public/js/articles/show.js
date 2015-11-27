@@ -8,6 +8,7 @@ $(function(){
   })
 
   API.getOneArticle(articleId).then(function(data){
+    $("#showcase-grav").html('<img class="mini-gravatar" src="' + data.article.author.local.gravatar + '">')
     $("#showcase-author").html(data.article.author.local.email);
     $("#showcase-author").on('click',function(e){
       e.preventDefault();
@@ -15,10 +16,10 @@ $(function(){
     })
     $("#showcase-title").html(data.article.title);
     $("#showcase-content").html(data.article.contentHTML);
-    $("#showcase-time").html(new Date(data.time));
-    $("#showcase-tag").html("<span class='article-tag'><span class='icon ion-pricetag'></span>" + data.article.tag + "</span>")
+    $("#showcase-time").html(moment(new Date(data.time)).format("MMM Do YY"));
+    $("#showcase-tag").html('<span class="article-tag"><span class="icon ion-pricetag"></span><a href="/articles?sort=' + data.article.tag + '">' + data.article.tag + '</span>');
     data.comments.forEach(function(comment){
-      $("#all-comment").append('<div id="comment-'+ comment._id +'"><pre><b>'+ comment.by_user.local.email +'</b><pre>' + comment.content + '</pre><p>'+ new Date(parseInt(comment._id.substring(0,8), 16)*1000) + '</p><a class="icon ion-trash-a delete-comment" id="delete-' + comment._id + '" data-comment="' + comment._id + '"></a></pre>');
+      $("#all-comment").append('<div id="comment-'+ comment._id +'"><pre><b>'+ comment.by_user.local.email +'</b><pre>' + comment.content + '</pre><p>' +new Date(parseInt(comment._id.substring(0,8), 16)*1000) + '</p><a class="icon ion-trash-a delete-comment" id="delete-' + comment._id + '" data-comment="' + comment._id + '"></a></pre>');
 
         bindDeleteEvent($("#delete-" + comment._id), comment.by_user._id);
 

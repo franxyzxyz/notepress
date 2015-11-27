@@ -11,18 +11,15 @@ h2{
 a{
   color:rgba(40,150,150,1);
 }
-.circle{
-  width:100px;
-  height:100px;
-  background:white;
-  border-radius:50px;
-  border: 2px solid #444;
-  margin-top: 100px;
-  margin-left: auto;
-  margin-right: auto;
-  position:relative;
-  bottom:0;
-  padding:10px;
+.index-header{
+  margin:20px auto;
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+  padding:10px 0px;
+  font-size:25px;
+  text-align: center;
+  font-weight:300;
+  color:gray;
 }
 #user-meta{
   font-size:20px;
@@ -36,8 +33,13 @@ a{
   width:50%;
   margin:50px auto;
 }
-p.icon{
+.circle p.icon{
   font-size:50px;
+}
+.circle img{
+  border-radius:50px;
+  width:100px;
+  border: 2px solid #444;
 }
 #sort-title{
   padding:30px;
@@ -173,8 +175,11 @@ a.comment{
   margin:0 auto;
   width:80%;
   border-radius:5px;
-  background:rgba(220,220,220,0.6);
+  /*background:rgba(220,220,220,0.6);*/
   padding:10px 30px;
+}
+hr{
+  color:#333;
 }
 #showcase-title{
   font-weight:900;
@@ -279,4 +284,37 @@ a.nav-btn:hover{
 }
 #share-option{
   display:inline;
+}
+.gravatar{
+  width:40px;
+  border:2px solid rgba(40,150,150,1);
+  border-radius:20px;
+  margin-top:10px;
+  margin-right:10px;
+}
+.mini-gravatar{
+  width:30px;
+  border:2px solid rgba(40,150,150,1);
+  border-radius:15px;
+  margin:3px;
+}
+.large-gravatar{
+  width:100px;
+  /*border:2px solid rgba(40,150,150,1);*/
+  position:relative;
+  top:0;
+  left:0;
+}
+.circle{
+  width:100px;
+  height:100px;
+  /*background:white;*/
+  border-radius:50px;
+  /*border: 2px solid #444;*/
+  margin-top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  position:relative;
+  bottom:0;
+  /*padding:10px;*/
 }

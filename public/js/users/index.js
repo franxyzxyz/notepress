@@ -3,6 +3,7 @@ $(function(){
   var user_id = window.location.pathname.split("/")[2]
   API.getUserDashboard(user_id).then(function(data){
       // $("#dashboard-title").html("<p>"+ data.user.local.email +"</p>")
+      $("#grav-target").html('<img src="' + data.user.local.gravatar + 'class="large-gravatar">');
       $("#user-meta").html("<p>Email: <a href='mailto:"+ data.user.local.email +"'>"+ data.user.local.email +"</a></p>")
       // $("#personal-header").html("<h1 class='text-center'>Dashboard of " + data.user.local.email + "</h1>")
 

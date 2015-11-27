@@ -11,6 +11,7 @@ var session        = require('express-session');
 var connect        = require('connect')
 var methodOverride = require('method-override')
 var enml           = require('enml-js');
+var gravatar       = require('gravatar');
 
 require('dotenv').load();
 app.use(cookieParser());
@@ -33,8 +34,10 @@ app.use(passport.session());
 // app.use(flash());
 require('./config/passport')(passport);
 
+
 app.use(function (req, res, next) {
   global.user = req.user;
+  if(req.user){ global.gravatar = gravatar.url(req.user.local.email)};
   global.base = req.originalUrl;
   global.stackList = require('./helper/list').stackList;
   next()
