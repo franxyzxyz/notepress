@@ -15,14 +15,16 @@ $(function(){
   API.editArticle(articleId).then(function(data){
     $("#new-article-title").val(data.article.title);
     $("#editable").html(data.article.contentHTML);
+    $("#article-subtitle").val(data.article.subtitle);
   })
 
   $("#post-content").on('click',function(e){
     e.preventDefault();
     var title = $("#new-article-title").val();
     var content = $("#editable").html();
+    var subtitle = $("#article-subtitle").val();
     var tag = $("#tag-holder").val();
-    var articleContent = { title: title, article: content, tag: tag};
+    var articleContent = { title: title, article: content, tag: tag, subtitle:subtitle};
 
     API.updateArticle(articleId, articleContent).then(function(data){
       console.log("POST DONE")

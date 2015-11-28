@@ -3,8 +3,7 @@ $(function(){
   $("#new-article-tag").hide();
 
   API.getNewArticle().then(function(data){
-    console.log(data)
-    $("#notebook-meta").append("<p>No. of notes: " + data.notesMeta.totalNotes);
+    $("#notebook-meta").append("<p>No. of notes found: " + data.notesMeta.totalNotes);
     data.notesMeta.notes.forEach(function(note){
       $("#select-evernote").append("<div class='evernote-select' data-guid='"+ note.guid + "'><div class='preview-title'>" + note.title + "</div></div>")
     })
@@ -25,7 +24,6 @@ $(function(){
     $("#new-article-tag").show();
     var guid = $(".preview-selected").attr('data-guid');
     API.getOneNote(guid).then(function(data){
-      console.log(data)
       $(".editable").append(data.noteHtml)
     });
   })
@@ -44,13 +42,12 @@ $(function(){
   $("#post-content").on('click',function(e){
     e.preventDefault();
     var title = $("#new-article-title").val();
+    var subtitle = $("#new-article-subtitle").val();
     var content = $("#editable").html();
     var tag = $("#tag-holder").val();
-    var articleContent = { title: title, article: content, tag: tag};
+    var articleContent = { title: title, article: content, tag: tag, subtitle: subtitle};
 
     API.postArticle(articleContent).then(function(data){
-      console.log("POST DONE")
-      console.log(data)
       window.location.href = "/"
     })
   })
@@ -73,14 +70,13 @@ $(function(){
     })
   })
 
-
-  // $(".editable").on('focus',function(e){
-  //     $(".giphy-list").one('click',function(e){
-  //       e.preventDefault();
-  //       console.log($(this).attr('src'))
-  //       $("#editable").append("<img src='" + $(this).attr('src') + "'>")
-  //     })
-  // })
+  $("#search_giphy_string").on('focus',function(e){
+    $(this).popover('show')
+  })
+  $("#write-pop").on('click',function(e){
+    e.preventDefault();
+    $(this).popover('show')
+  })
 
   function trim(string){
     return string.toLocaleLowerCase().replace(/\s/g,'+')

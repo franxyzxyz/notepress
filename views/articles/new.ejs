@@ -1,7 +1,10 @@
 <div class="container">
   <div class="new-title">
     <h1>1. Title of Article</h1>
-    <input type="text" placeholder="title" class="form-control" id="new-article-title">
+    <input type="text" placeholder="Title: e.g. The 10 reasons that I like Node.js" class="form-control" id="new-article-title">
+    <br/>
+    <input type="text" placeholder="Abstract: e.g. I repeat...#nodejs is the best" class="form-control" id="new-article-subtitle" maxlength="140">
+
   </div>
   <div class="select-note">
     <h1>2. Select notes from your Evernote Collection</h1>
@@ -14,11 +17,11 @@
     </div>
   </div>
   <div id="new-article-content">
-    <h1 id="writeUp">3. Write it Up</h1>
+    <h1 id="writeUp">3. Write it Up  <a class="icon ion-ios-help-outline" id="write-pop"  data-toggle="popover" title="How To Write" data-content="To change the style of words, just double click on the targeted words and select the desired style from the toolbar list. eg. 'B' to make it bold"></a></h1>
     <div class="container">
       <div class="col-sm-3">
         <div id="section-search" >
-          <input type="text" placeholder="search giphy" id="search_giphy_string">
+          <input type="text" placeholder="search giphy" id="search_giphy_string" data-placement="top" data-toggle="popover" title="Add giphy to text" data-content="Search for a giphy, then by clicking on the Giphy that you want to be added, it'll straight be embedded to the text-editor">
           <span>
             <button class="btn btn-link icon ion-ios-search-strong" type="button" id="fetch_giphy"></button>
           </span>

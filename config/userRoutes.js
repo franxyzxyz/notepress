@@ -29,7 +29,7 @@ userRouter.post('/local/signup', passport.authenticate('local-signup',{
   var client = new Evernote.Client({
     consumerKey: process.env.EVERNOTE_CONSUMER_KEY,
     consumerSecret: process.env.EVERNOTE_CONSUMER_SECRET,
-    sandbox: true
+    sandbox: false
   });
 
   var callbackURL = 'http://localhost:3000/local/oauth_callback';
@@ -55,7 +55,7 @@ userRouter.get('/local/oauth_callback',function(req,res){
   var client = new Evernote.Client({
     consumerKey: process.env.EVERNOTE_CONSUMER_KEY,
     consumerSecret: process.env.EVERNOTE_CONSUMER_SECRET,
-    sandbox: true
+    sandbox: false
   });
   client.getAccessToken(req.session.oauthToken, req.session.oauthTokenSecret, req.param('oauth_verifier'), function(error, oauthAccessToken, oauthAccessTokenSecret, results){
       if(error) {

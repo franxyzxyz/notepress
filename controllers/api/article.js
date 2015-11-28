@@ -34,6 +34,7 @@ function updateArticle(req,res){
     article.title = req.body.title;
     article.contentHTML = req.body.article;
     article.tag = [req.body.tag];
+    article.subtitle = req.body.subtitle;
 
     article.save(function(err,article){
       if (err) throw err;
@@ -44,9 +45,17 @@ function updateArticle(req,res){
 }
 
 function getNewArticle(req,res){
-  var client = new Evernote.Client({token: req.user.evernote.access_token});
+  console.log(req.account)
+  var client = new Evernote.Client({
+    consumerKey: process.env.EVERNOTE_CONSUMER_KEY,
+    consumerSecret: process.env.EVERNOTE_CONSUMER_SECRET,
+    sandbox: false,
+   token: req.user.evernote.access_token
+  });
+  // console.log(client)
   var noteStore = client.getNoteStore();
   noteStore.listNotebooks(function(err, notebooks) {
+    // console.log(notebooks);
     var filter = new Evernote.NoteFilter();
     resultSpec = new Evernote.NotesMetadataResultSpec();
     resultSpec.includeTitle=true;
@@ -75,6 +84,7 @@ function postArticle(req,res){
   var newArticle = new Article();
   newArticle.title = req.body.title;
   newArticle.contentHTML = req.body.article;
+  newArticle.subtitle = req.body.subtitle;
   newArticle.tag = [req.body.tag];
   newArticle.author = req.user._id
   newArticle.save(function(err,article){

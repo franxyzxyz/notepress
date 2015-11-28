@@ -55,9 +55,18 @@
       </div><!-- /.container-fluid -->
     </nav>
   </header>
-  <%- body %>
+  <main class="content">
+    <%- body %>
+  </main>
 </body>
 <footer>
-  GitHub
+   <a href="https://github.com/franxyzxyz/notepress" target="_blank"><i class="icon ion-social-github tooltip-icon" data-toggle="tooltip" data-placement="top" title="Check out Github Repo"></i></a>   <a href="https://hk.linkedin.com/in/francesng" target="_blank"><i class="icon ion-social-linkedin tooltip-icon" data-toggle="tooltip" data-placement="top" title="View Frances Ng's linkedin Profile"></i> </a>
 </footer>
+<script>
+  $(function(){
+    $('.tooltip-icon').on('mouseover',function(e){
+      $(this).tooltip('show')
+    })
+  })
+</script>
 </html>
