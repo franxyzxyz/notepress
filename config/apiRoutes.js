@@ -29,6 +29,11 @@ apiRouter.route('/api/comment')
 apiRouter.route('/api/comment/:commend_id')
   .delete(apiController.deleteComment)
 
+apiRouter.route('/api/notebooks')
+  .get(authenticatedUser, apiController.getNotebookList)
+
+apiRouter.route('/api/notebooks/:guid')
+  .get(authenticatedUser, apiController.getNotesMeta)
 
 apiRouter.route('/api/guid/:guid')
   .get(authenticatedUser, apiController.getOneNote)

@@ -44,18 +44,50 @@ function updateArticle(req,res){
   })
 }
 
-function getNewArticle(req,res){
-  console.log(req.account)
+function getNotebookList(req,res){
   var client = new Evernote.Client({
     consumerKey: process.env.EVERNOTE_CONSUMER_KEY,
     consumerSecret: process.env.EVERNOTE_CONSUMER_SECRET,
     sandbox: false,
-   token: req.user.evernote.access_token
+    token: req.user.evernote.access_token
   });
-  // console.log(client)
   var noteStore = client.getNoteStore();
   noteStore.listNotebooks(function(err, notebooks) {
-    // console.log(notebooks);
+    res.status(201).json({notebooks : notebooks})
+  });
+}
+
+function getNotesMeta(req,res){
+  var client = new Evernote.Client({
+    consumerKey: process.env.EVERNOTE_CONSUMER_KEY,
+    consumerSecret: process.env.EVERNOTE_CONSUMER_SECRET,
+    sandbox: false,
+    token: req.user.evernote.access_token
+  });
+  var noteStore = client.getNoteStore();
+  noteStore.listNotebooks(function(err, notebooks) {
+    var filter = new Evernote.NoteFilter();
+    resultSpec = new Evernote.NotesMetadataResultSpec();
+    resultSpec.includeTitle=true;
+
+    filter.notebookGuid = req.params.guid;
+    noteStore.findNotesMetadata(filter, 0, 100, resultSpec, function(err, notesMeta){
+      // res.render('show',{notesMeta})
+      res.status(201).json({notesMeta : notesMeta})
+      // res.render('articles/new', {notesMeta})
+    })
+  });
+}
+
+function getNewArticle(req,res){
+  var client = new Evernote.Client({
+    consumerKey: process.env.EVERNOTE_CONSUMER_KEY,
+    consumerSecret: process.env.EVERNOTE_CONSUMER_SECRET,
+    sandbox: false,
+    token: req.user.evernote.access_token
+  });
+  var noteStore = client.getNoteStore();
+  noteStore.listNotebooks(function(err, notebooks) {
     var filter = new Evernote.NoteFilter();
     resultSpec = new Evernote.NotesMetadataResultSpec();
     resultSpec.includeTitle=true;
@@ -133,7 +165,12 @@ function deleteComment(req,res){
 }
 
 function getOneNote(req,res){
-  var client = new Evernote.Client({token: req.user.evernote.access_token});
+  var client = new Evernote.Client({
+    consumerKey: process.env.EVERNOTE_CONSUMER_KEY,
+    consumerSecret: process.env.EVERNOTE_CONSUMER_SECRET,
+    sandbox: false,
+    token: req.user.evernote.access_token
+  });
   var noteStore = client.getNoteStore();
 
   noteStore.getNoteContent(req.params.guid,function(err,note){
@@ -146,6 +183,8 @@ module.exports = {
   getAllArticle:  getAllArticle,
   getNewArticle: getNewArticle,
   getOneArticle: getOneArticle,
+  getNotesMeta: getNotesMeta,
+  getNotebookList: getNotebookList,
   deleteOneArticle: deleteOneArticle,
   postArticle: postArticle,
   updateArticle: updateArticle,

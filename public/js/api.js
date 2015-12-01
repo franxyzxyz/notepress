@@ -26,6 +26,13 @@ var API_WRAPPER = function(){
     });
   }
 
+  this.getNotesMeta = function(notebook_guid){
+    return $.ajax({
+      url: '../../api/notebooks/' + notebook_guid,
+      type: 'GET'
+    });
+  }
+
   this.getNewArticle = function(){
     return $.ajax({
       url: '../../api/article',
@@ -95,6 +102,13 @@ var API_WRAPPER = function(){
   this.getOneNote = function(guid){
     return $.ajax({
       url: '../../api/guid/' + guid,
+      type: 'GET',
+    })
+  }
+
+  this.getNotebooks = function(){
+    return $.ajax({
+      url: '../../api/notebooks',
       type: 'GET',
     })
   }

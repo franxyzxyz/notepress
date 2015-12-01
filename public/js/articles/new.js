@@ -2,21 +2,33 @@ $(function(){
   $("#new-article-content").hide();
   $("#new-article-tag").hide();
 
-  API.getNewArticle().then(function(data){
-    $("#notebook-meta").append("<p>No. of notes found: " + data.notesMeta.totalNotes);
-    data.notesMeta.notes.forEach(function(note){
-      $("#select-evernote").append("<div class='evernote-select' data-guid='"+ note.guid + "'><div class='preview-title'>" + note.title + "</div></div>")
+  API.getNotebooks().then(function(data){
+    data.notebooks.forEach(function(notebook){
+      $("#notebook-list").append("<div class='evernote-notebook' data-guid='" + notebook.guid +"'>" + notebook.name + "</div>")
     })
-
-    $(".evernote-select").on('click',function(e){
+    $(".evernote-notebook").on('click',function(e){
       e.preventDefault();
-      $(".evernote-select").removeClass('preview-selected')
-      $(this).addClass('preview-selected')
-      API.getOneNote($(this).attr('data-guid')).then(function(data){
-        $("#preview-evernote").html(data.noteHtml)
+      $(".evernote-notebook").removeClass('preview-selected')
+      $(this).addClass('preview-selected');
+      var current_notebook = $(this).html()
+      API.getNotesMeta($(this).attr("data-guid")).then(function(data){
+        $("#notebook-meta").html("<p class='text-center'>" + current_notebook +' <i class="icon ion-chevron-down"></i></p>');
+        $("#select-evernote").html("");
+        data.notesMeta.notes.forEach(function(note){
+          $("#select-evernote").append("<div class='evernote-select' data-guid='"+ note.guid + "'><div class='preview-title'>" + note.title + "</div></div>")
+        })
+
+        $(".evernote-select").on('click',function(e){
+          e.preventDefault();
+          $(".evernote-select").removeClass('preview-selected')
+          $(this).addClass('preview-selected')
+          API.getOneNote($(this).attr('data-guid')).then(function(data){
+            $("#preview-evernote").html(data.noteHtml)
+          })
+        })
       })
     })
-  });
+  })
 
   $("#note-selected").on('click',function(e){
     e.preventDefault();
@@ -64,7 +76,6 @@ $(function(){
 
       $(".giphy-list").on('click',function(e){
         e.preventDefault();
-        console.log($(this).attr('src'))
         $("#editable").append("<img src='" + $(this).attr('src') + "'>")
       })
     })

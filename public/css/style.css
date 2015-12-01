@@ -85,12 +85,21 @@ footer i.icon{
   padding:10px;
   background:rgba(230,230,230,1);
   border-radius:5px;
+  height:500px;
+  /*overflow:auto;*/
 }
-.evernote-select{
-  width:180px;
-  height:180px;
+#notebook-list{
+  overflow-x: auto;
+  /*max-height:170px;*/
+  background:rgba(230,230,230,1);
+  padding:10px;
   border-radius:5px;
-  margin: 0px 5px;
+}
+.evernote-notebook{
+  width:95%;
+  height:60px;
+  border-radius:5px;
+  margin: 5px auto;
   border: 1px solid #ccc;
   display:inline-block;
   padding:10px;
@@ -98,12 +107,42 @@ footer i.icon{
   cursor:pointer;
   background:white;
 }
+.evernote-select{
+  width:180px;
+  height:100px;
+  border-radius:5px;
+  margin: 7px auto;
+  border: 1px solid #ccc;
+  display:block;
+  padding:10px;
+  vertical-align: bottom;
+  cursor:pointer;
+  background:white;
+}
+.select-note-div{
+  display:flex;
+}
+.select-notebook{
+  flex:1;
+  max-height:500px;
+  overflow:auto;
+}
+.select-notes{
+  flex:1;
+  max-height:470px;
+  overflow:auto;
+}
 #preview-evernote{
   border-radius:5px;
   background:white;
   padding:10px;
-  height:200px;
-  overflow: hidden;
+  height:400px;
+  overflow: auto;
+}
+#notebook-meta *{
+  /*font-weight:700;*/
+  font-size:13px;
+  cursor: pointer;
 }
 .evernote-select:hover{
   border: 1px solid rgba(50,150,200,1);
@@ -124,9 +163,7 @@ footer i.icon{
   overflow: hidden;
   white-space: nowrap;
 }
-#select-evernote{
-  overflow-x: auto;
-}
+
 .read-more, .read-more a{
   z-index: 2;
   color:rgba(40,150,150,1);
