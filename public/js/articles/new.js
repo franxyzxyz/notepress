@@ -35,9 +35,7 @@ $(function(){
     $("#new-article-content").show();
     $("#new-article-tag").show();
     var guid = $(".preview-selected").attr('data-guid');
-    API.getOneNote(guid).then(function(data){
-      $(".editable").append(data.noteHtml)
-    });
+    $(".editable").append($("#preview-evernote").html())
   })
 
   var editor = new MediumEditor('.editable', {
