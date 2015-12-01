@@ -1,8 +1,6 @@
 var mongoose = require('mongoose');
 var stackList = require('../helper/list').stackList;
 
-// var stackList = ['Node.js','Ruby','HTML','CSS','Rails','MongoDB','Postgres','Neo4J','Others','Javascipt'];
-
 var Article = mongoose.Schema({
   title: { type: String, required: true},
   subtitle: { type: String},

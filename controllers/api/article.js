@@ -72,9 +72,7 @@ function getNotesMeta(req,res){
 
     filter.notebookGuid = req.params.guid;
     noteStore.findNotesMetadata(filter, 0, 100, resultSpec, function(err, notesMeta){
-      // res.render('show',{notesMeta})
       res.status(201).json({notesMeta : notesMeta})
-      // res.render('articles/new', {notesMeta})
     })
   });
 }
@@ -94,9 +92,7 @@ function getNewArticle(req,res){
 
     filter.notebookGuid = notebooks[0].guid;
     noteStore.findNotesMetadata(filter, 0, 100, resultSpec, function(err, notesMeta){
-      // res.render('show',{notesMeta})
       res.status(201).json({notesMeta : notesMeta})
-      // res.render('articles/new', {notesMeta})
     })
   });
 }

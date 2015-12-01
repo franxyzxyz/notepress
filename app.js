@@ -31,7 +31,6 @@ app.use(session({ secret: 'devnote-evernote-passbook'
  }));
 app.use(passport.initialize());
 app.use(passport.session());
-// app.use(flash());
 require('./config/passport')(passport);
 
 

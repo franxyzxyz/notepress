@@ -47,8 +47,7 @@ $(function(){
   });
 
   editor.subscribe('editableInput', function (event, editable) {
-    // Do some work
-    // console.log(editable.innerHTML)
+    // AUTO-SAVE FEATURE [COMING UP]
   });
 
   $("#post-content").on('click',function(e){

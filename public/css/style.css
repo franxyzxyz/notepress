@@ -434,7 +434,6 @@ a.nav-btn:hover{
 }
 .large-gravatar{
   width:100px;
-  /*border:2px solid rgba(40,150,150,1);*/
   position:relative;
   top:0;
   left:0;
@@ -442,13 +441,10 @@ a.nav-btn:hover{
 .circle{
   width:100px;
   height:100px;
-  /*background:white;*/
   border-radius:50px;
-  /*border: 2px solid #444;*/
   margin-top: 100px;
   margin-left: auto;
   margin-right: auto;
   position:relative;
   bottom:0;
-  /*padding:10px;*/
 }
