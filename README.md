@@ -6,9 +6,7 @@ NotePress is an article publishing platform for junior web-developers to share t
 
 ### How to use this?
 
-- [https://realtimemarkdown.herokuapp.com/sample](https://realtimemarkdown.herokuapp.com/sample)
-- [https://realtimemarkdown.herokuapp.com/my_project](https://realtimemarkdown.herokuapp.com/my_project)
-- [https://realtimemarkdown.herokuapp.com/whatever](https://realtimemarkdown.herokuapp.com/whatever)
+- ![canvas](public/img/notepress-1.png)
 
 ### Technologies
  - [Node.js](https://nodejs.org/), [MongoDB](https://www.mongodb.org/), [Express](http://expressjs.com/)
